@@ -1,3 +1,4 @@
+-- Active: 1682460182546@@SG-codeworks-7498-mysql-master.servers.mongodirector.com@3306@sandbox
 CREATE TABLE
     IF NOT EXISTS accounts(
         id VARCHAR(255) NOT NULL primary key COMMENT 'primary key',
@@ -55,20 +56,27 @@ CREATE TABLE
         name VARCHAR(50) NOT NULL,
         quantity VARCHAR(50) NOT NULL,
         recipeId INT NOT NULL,
-        creatorId VARCHAR(255) NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
     ) default charset utf8mb4 COMMENT '';
 
 INSERT INTO
-    ingredients (name, quantity, recipeId, creatorId)
-VALUES ('chicken', '20 oz.', 1, '64498cc78b77a7e9c3c3441f');
+    ingredients (name, quantity, recipeId)
+VALUES ('chicken', '20 oz.', 1);
 
 SELECT
     ing.*,
     rec.*
 FROM
-    ingredients ing
-    JOIN recipes rec ON rec.id = ing.recipeId;
+    recipes rec
+    JOIN ingredients ing ON ing.recipeId = rec.id
+    WHERE ing.recipeId = recipeId;
+
+ALTER TABLE ingredients
+ADD
+COLUMN createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+ADD
+COLUMN updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
 CREATE TABLE
     favorites(
         id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,

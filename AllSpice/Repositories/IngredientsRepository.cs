@@ -12,25 +12,35 @@ namespace AllSpice.Repositories
         {
             string sql = @"
             INSERT INTO ingredients
-            (name, quantity, recipeId, creatorId)
+            (name, quantity, recipeId)
             VALUES
-            (@name, @quantity, @recipeId, @creatorId);
+            (@name, @quantity, @recipeId);
 
+            SELECT LAST_INSERT_ID();
+            ";
+            int id = _db.ExecuteScalar<int>(sql, ingredientData);
+            ingredientData.Id = id;
+            ingredientData.CreatedAt = DateTime.Now;
+            ingredientData.UpdatedAt = DateTime.Now;
+            return ingredientData;
+
+        }
+
+        internal List<Ingredient> GetRecipeIngredients(int recipeId)
+        {
+            string sql = @"
             SELECT
             ing.*,
-            rec.*,
-            creator.*
+            acct.*
             FROM ingredients ing
-            JOIN recipes rec ON rec.id = ing.recipeId
-            JOIN accounts creator ON rec.creatorId = creator.id
-            WHERE ing.id = LAST_INSERT_ID();
+            JOIN accounts acct ON ing.creatorId = account.id
+            WHERE ing.recipeId = @recipeId;
             ";
-            Ingredient ingredient = _db.Query<Ingredient, Account, Ingredient>(sql, (ingredient, creator) =>
+            return _db.Query<Ingredient, Account, Ingredient>(sql, (ing, account) =>
             {
-                ingredient.Creator = creator;
-                return ingredient;
-            }, ingredientData).FirstOrDefault();
-            return ingredient;
+            //  cast the creator to the ingredient to be returned
+                return ing;
+            }, new { recipeId }).ToList();
         }
     }
 }

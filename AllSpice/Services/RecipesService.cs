@@ -3,10 +3,12 @@ namespace AllSpice.Services
     public class RecipesService
     {
         private readonly RecipesRepository _repo;
+        private readonly IngredientsService _ingredientsService;
 
-        public RecipesService(RecipesRepository repo)
+        public RecipesService(RecipesRepository repo, IngredientsService ingredientsService)
         {
             _repo = repo;
+            _ingredientsService = ingredientsService;
         }
 
 
@@ -53,6 +55,12 @@ namespace AllSpice.Services
                 throw new Exception("Something went wrong.");
             }
             return $"{recipe.Title} has been removed.";
+        }
+
+        internal List<Ingredient> GetRecipeIngredients(int recipeId)
+        {
+            List<Ingredient> ingredients = _ingredientsService.GetRecipeIngredients(recipeId);
+            return ingredients;
         }
     }
 }
