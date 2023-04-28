@@ -30,17 +30,12 @@ namespace AllSpice.Repositories
         {
             string sql = @"
             SELECT
-            ing.*,
-            acct.*
+            ing.*
             FROM ingredients ing
-            JOIN accounts acct ON ing.creatorId = account.id
             WHERE ing.recipeId = @recipeId;
             ";
-            return _db.Query<Ingredient, Account, Ingredient>(sql, (ing, account) =>
-            {
-            //  cast the creator to the ingredient to be returned
-                return ing;
-            }, new { recipeId }).ToList();
+            List<Ingredient> ingredients =  _db.Query<Ingredient>(sql, new { recipeId }).ToList();
+            return ingredients;
         }
     }
 }
