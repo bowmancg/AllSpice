@@ -1,4 +1,4 @@
--- Active: 1682460182546@@SG-codeworks-7498-mysql-master.servers.mongodirector.com@3306@sandbox
+-- Active: 1682476661572@@SG-codeworks-7498-mysql-master.servers.mongodirector.com@3306@sandbox
 CREATE TABLE
     IF NOT EXISTS accounts(
         id VARCHAR(255) NOT NULL primary key COMMENT 'primary key',
@@ -89,3 +89,8 @@ CREATE TABLE
 INSERT INTO
     favorites (accountId, recipeId)
 VALUES ('64498cc78b77a7e9c3c3441f', 1);
+
+SELECT
+fav.*,
+fav.id favoriteId
+FROM favorites fav;

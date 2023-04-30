@@ -20,5 +20,11 @@ namespace AllSpice.Services
             List<Ingredient> ingredients = _repo.GetRecipeIngredients(recipeId);
             return ingredients;
         }
+
+        internal string RemoveIngredient(int ingredientId)
+        {
+            _repo.Remove(ingredientId);
+            return "Ingredient deleted.";
+        }
     }
 }

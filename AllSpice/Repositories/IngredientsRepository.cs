@@ -37,5 +37,13 @@ namespace AllSpice.Repositories
             List<Ingredient> ingredients =  _db.Query<Ingredient>(sql, new { recipeId }).ToList();
             return ingredients;
         }
+
+        internal void Remove(int id)
+        {
+            string sql = @"
+            DELETE FROM ingredients WHERE Id = @Id;
+            ";
+            _db.Execute(sql, new { id });
+        }
     }
 }

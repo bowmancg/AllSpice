@@ -28,5 +28,19 @@ namespace AllSpice.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpDelete("{ingredientId}")]
+        public ActionResult<string> RemoveIngredient(int ingredientId)
+        {
+            try
+            {
+                string message = _ingredientsService.RemoveIngredient(ingredientId);
+                return Ok(message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
