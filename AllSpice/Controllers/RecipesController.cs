@@ -1,6 +1,5 @@
 namespace AllSpice.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class RecipesController : ControllerBase
@@ -60,6 +59,7 @@ namespace AllSpice.Controllers
         }
 
         [HttpPut("{recipeId}")]
+        [Authorize]
         public ActionResult<Recipe> EditRecipe([FromBody] Recipe recipeData, int recipeId)
         {
             try
@@ -75,6 +75,7 @@ namespace AllSpice.Controllers
         }
 
         [HttpDelete("{recipeId}")]
+        [Authorize]
         public ActionResult<string> Remove(int recipeId)
         {
             try
