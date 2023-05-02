@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
     <h2>Choose a Recipe!</h2>
+    <button class="border btn btn-primary rounded-pill selectable col-2 mb-3" data-bs-toggle="modal" data-bs-target="#recipeModal">Create Recipe</button>
     <section class="row">
-      <button class="border rounded-pill selectable" data-bs-toggle="modal" data-bs-target="#recipeModal">Create Recipe</button>
-      <div v-for="r in recipes" class="col-6 col-md-3">
+      <div v-for="r in recipes" class="col-6 col-md-3 mb-3">
         <RecipeCard :recipe="r" />
       </div>
     </section>
@@ -54,6 +54,8 @@ export default {
   place-content: center;
   text-align: center;
   user-select: none;
+
+
 
   .home-card {
     width: 50vw;

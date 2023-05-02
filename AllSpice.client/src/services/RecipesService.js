@@ -24,6 +24,18 @@ class RecipesService {
         AppState.recipes.push(new Recipe(res.data))
         return res.data
     }
+
+    async editRecipe(recipeData, recipeId) {
+        const res = await api.put(`api/recipes/${recipeId}`, recipeData)
+        logger.log('Edit Recipe', res.data)
+        AppState.activeRecipe = new Recipe(res.data)
+    }
+
+    async deleteRecipe(recipeId) {
+        const res = await api.delete(`api/recipes/${recipeId}`)
+        logger.log('Deleted Recipe', res.data)
+        AppState.recipes = AppState.recipes.filter(r => r.activeRecipe != recipeId)
+    }
 }
 
 export const recipesService = new RecipesService()
