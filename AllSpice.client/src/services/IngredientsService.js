@@ -12,6 +12,12 @@ class IngredientsService {
         AppState.ingredients.push(new Ingredient(res.data))
         return res.data
     }
+
+    async getIngredientsByRecipeId(recipeId) {
+        const res =  await api.get(`api/recipes/${recipeId}/ingredients`)
+        logger.log('[get ingredients]', res.data)
+        AppState.ingredients = res.data.map(i => new Ingredient(i))
+    }
 }
 
 export const ingredientsService = new IngredientsService()

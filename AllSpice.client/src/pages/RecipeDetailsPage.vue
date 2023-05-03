@@ -10,16 +10,14 @@
             <div class="col-12 col-md-6">
                 <h4>Written by {{ recipe.creator.name }}</h4>
                 <p>{{ recipe.instructions }}</p>
-                <div v-for="i in ingredients">
-                    <ul>
+                    <ul v-for="i in ingredients">
                         <IngredientCard :ingredient="i" />
                     </ul>
-                </div>
             </div>
         </section>
         <section class="row justify-content-between m-3">
             <div class="col-md-3">
-                <button class="btn btn-info border selectable rounded-pill" v-if="reicpe?.creatorId == account?.id" data-bs-toggle="modal" data-bs-target="#recipeModal">Edit Recipe</button>
+                <button class="btn btn-info border selectable rounded-pill" v-if="recipe?.creatorId == account?.id" data-bs-toggle="modal" data-bs-target="#recipeModal">Edit Recipe</button>
             </div>
             <div class="col-md-3">
                 <button class="btn btn-danger border selectable rounded-pill" v-if="recipe?.creatorId == account?.id" @click="deleteRecipe(recipe.id)">Delete Recipe</button>
@@ -57,12 +55,22 @@ import { recipesService } from '../services/RecipesService';
 import { router } from '../router';
 import IngredientForm from '../components/IngredientForm.vue';
 import IngredientCard from '../components/IngredientCard.vue';
+import { ingredientsService } from '../services/IngredientsService';
 export default {
     setup() {
         const editable = ref({});
-        // onMounted(() => {
-        //     getRecipeById()
-        // })
+        onMounted(() => {
+            // getRecipeById()
+            getIngredientsByRecipeId()
+        })
+        async function getIngredientsByRecipeId() {
+            try {
+                let recipeId = route.params.recipeId
+                await ingredientsService.getIngredientsByRecipeId(recipeId)
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
         const route = useRoute();
         async function getRecipeById() {
             try {
