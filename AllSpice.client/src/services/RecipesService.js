@@ -36,6 +36,18 @@ class RecipesService {
         logger.log('Deleted Recipe', res.data)
         AppState.recipes = AppState.recipes.filter(r => r.activeRecipe != recipeId)
     }
+
+    async searchRecipes(query) {
+        const res = await api.get('api/recipes', { params: { query: query } })
+        logger.log('[Searching Recipes]', res.data)
+        AppState.query = query.query
+        AppState.recipes = res.data.map(r => new Recipe(r))
+    }
+
+    async clearSearch() {
+        AppState.query = ''
+        this.getRecipes()
+    }
 }
 
 export const recipesService = new RecipesService()

@@ -1,7 +1,7 @@
 <template>
     <div class="card text-center elevation-5">
         <div>
-            <img :src="recipe.img" alt="" class="img-fluid">
+            <img :src="recipe.img" alt="" class="img-fluid recipe-img">
         </div>
         <div class="p-2">
             <router-link :to="{ name: 'RecipeDetails', params: { recipeId: recipe.id } }">
@@ -26,5 +26,8 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.recipe-img {
+    height: 60vh;
+    width: 60vh;
+}
 </style>

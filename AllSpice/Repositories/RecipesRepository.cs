@@ -86,5 +86,24 @@ namespace AllSpice.Repositories
             int rowsAffected = _db.Execute(sql, new { recipeId });
             return rowsAffected;
         }
+
+        internal List<Recipe> GetAll(string query)
+        {
+            query = '%' + query + '%';
+            string sql = @"
+            SELECT
+            r.*,
+            creator.*
+            FROM recipes r
+            JOIN accounts creator ON r.creatorId = creator.id
+            WHERE r.title LIKE @query;
+            ";
+            List<Recipe> recipes = _db.Query<Recipe, Profile, Recipe>(sql, (recipe, creator) => 
+            {
+                recipe.Creator = creator;
+                return recipe;
+            }, new { query }).ToList();
+            return recipes;
+        }
     }
 }

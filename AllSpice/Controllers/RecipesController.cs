@@ -31,11 +31,19 @@ namespace AllSpice.Controllers
             }
         }
         [HttpGet]
-        public ActionResult<List<Recipe>> GetRecipes()
+        public ActionResult<List<Recipe>> GetRecipes(string query)
         {
             try
             {
-                List<Recipe> recipes = _recipesService.GetRecipes();
+                List<Recipe> recipes;
+                if (query == null)
+                {
+                    recipes = _recipesService.GetRecipes();
+                }
+                else
+                {
+                    recipes = _recipesService.Get(query);
+                }
                 return Ok(recipes);
             }
             catch (Exception e)

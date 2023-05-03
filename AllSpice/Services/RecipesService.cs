@@ -62,5 +62,11 @@ namespace AllSpice.Services
             List<Ingredient> ingredients = _ingredientsService.GetRecipeIngredients(recipeId);
             return ingredients;
         }
+
+        internal List<Recipe> Get(string query)
+        {
+            List<Recipe> recipes = _repo.GetAll(query);
+            return recipes;
+        }
     }
 }

@@ -9,9 +9,13 @@
 <script>
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted } from 'vue';
+import { Ingredient } from '../models/Ingredient';
 export default {
+    props: { ingredient: { type: Ingredient, required: true } },
     setup(){
-    return {  }
+    return {
+        ingredients: computed(() => AppState.ingredients)
+    }
     }
 };
 </script>

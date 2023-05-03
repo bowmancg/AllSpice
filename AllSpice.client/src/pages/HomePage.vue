@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid">
     <h2>Choose a Recipe!</h2>
+    <RecipeSearchBar />
     <button class="border btn btn-primary rounded-pill selectable col-2 mb-3" data-bs-toggle="modal" data-bs-target="#recipeModal">Create Recipe</button>
     <section class="row">
       <div v-for="r in recipes" class="col-6 col-md-3 mb-3">
@@ -25,6 +26,7 @@ import { recipesService } from '../services/RecipesService';
 import { AppState } from '../AppState';
 import RecipeCard from '../components/RecipeCard.vue';
 import RecipeForm from '../components/RecipeForm.vue';
+import RecipeSearchBar from '../components/RecipeSearchBar.vue';
 
 export default {
     setup() {
@@ -43,7 +45,7 @@ export default {
             recipes: computed(() => AppState.recipes)
         };
     },
-    components: { RecipeCard, RecipeForm }
+    components: { RecipeCard, RecipeForm, RecipeSearchBar }
 }
 </script>
 
