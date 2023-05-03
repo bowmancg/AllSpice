@@ -30,7 +30,7 @@ export default {
                 const ingredientData = editable.value
                 ingredientData.recipeId = route.params.recipeId
                 await ingredientsService.createIngredient(ingredientData)
-                editable.value
+                editable.value = {}
             } catch (error) {
                 Pop.error(error)
             }

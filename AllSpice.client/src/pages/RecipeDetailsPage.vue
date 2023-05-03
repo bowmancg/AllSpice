@@ -18,6 +18,7 @@
         <section class="row justify-content-between m-3">
             <div class="col-md-3">
                 <button class="btn btn-info border selectable rounded-pill" v-if="recipe?.creatorId == account?.id" data-bs-toggle="modal" data-bs-target="#recipeModal">Edit Recipe</button>
+                <button class="btn btn-info border selectable rounded-pill" v-if="recipe?.creatorId == account?.id" data-bs-toggle="modal" data-bs-target="#recipeModal">Edit Recipe</button>
             </div>
             <div class="col-md-3">
                 <button class="btn btn-danger border selectable rounded-pill" v-if="recipe?.creatorId == account?.id" @click="deleteRecipe(recipe.id)">Delete Recipe</button>
@@ -54,6 +55,7 @@ import Pop from '../utils/Pop';
 import { recipesService } from '../services/RecipesService';
 import IngredientForm from '../components/IngredientForm.vue';
 import IngredientCard from '../components/IngredientCard.vue';
+import { ingredientsService } from '../services/IngredientsService';
 import { ingredientsService } from '../services/IngredientsService';
 export default {
     setup() {
